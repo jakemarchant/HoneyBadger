@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Write-Output \"--- searching common install locations ---\"; Test-Path \"$env:USERPROFILE\\\\.local\\\\bin\\\\claude.exe\"; Test-Path \"$env:USERPROFILE\\\\.claude\\\\local\\\\claude.exe\"; Get-ChildItem \"$env:USERPROFILE\\\\.claude\" -ErrorAction SilentlyContinue | Select-Object Name; Write-Output \"--- PATH entries ---\"; $env:PATH -split \";\")",
+      "Bash(php -v)",
+      "PowerShell(php -v; where.exe php)",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://honeybadger.test\" -UseBasicParsing -TimeoutSec 8; \"STATUS: $\\($r.StatusCode\\)\" } catch { \"ERROR: $\\($_.Exception.Message\\)\" })",
+      "Bash(php artisan *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://127.0.0.1:8321/)",
+      "Bash(grep -oP \"opening_party[^\\)]{0,3}\\\\\\)\")",
+      "Bash(sqlite3 database/database.sqlite \".tables\")",
+      "Bash(mv \"cocktail_in_the_sun.jpeg\" \"cocktail-in-the-sun.jpeg\")",
+      "Bash(mv \"new_york_sours_cocktails.jpeg\" \"new-york-sours-cocktails.jpeg\")",
+      "Bash(mv \"spicy_marg_cocktails.jpeg\" \"spicy-marg-cocktails.jpeg\")",
+      "Bash(mv \"pink_cocktails.jpeg\" \"pink-cocktails.jpeg\")",
+      "Bash(mv \"featured_cocktails.jpeg\" \"featured-cocktails.jpeg\")",
+      "Bash(gh auth *)",
+      "Bash(git ls-remote *)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(gh --version)",
+      "Bash(where git-credential-manager *)",
+      "Bash(git --version)",
+      "Bash(git remote *)",
+      "Bash(git add *)"
+    ]
+  }
+}
