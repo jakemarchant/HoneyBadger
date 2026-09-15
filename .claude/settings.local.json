@@ -21,7 +21,30 @@
       "Bash(where git-credential-manager *)",
       "Bash(git --version)",
       "Bash(git remote *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(composer install *)",
+      "PowerShell(composer install *)",
+      "PowerShell(icacls \"bootstrap\\\\cache\")",
+      "PowerShell(icacls *)",
+      "Bash(php -r 'var_dump\\(is_writable\\(\"bootstrap/cache\"\\)\\);')",
+      "Bash(touch bootstrap/cache/testfile.txt)",
+      "Bash(rm bootstrap/cache/testfile.txt)",
+      "PowerShell(where.exe php; php -r \"var_dump\\(is_writable\\('bootstrap/cache'\\)\\);\")",
+      "PowerShell(icacls \"bootstrap\\\\cache\"; php -r \"var_dump\\(is_writable\\('bootstrap/cache'\\)\\);\")",
+      "PowerShell(attrib \"bootstrap\\\\cache\"; Write-Output \"---\"; Get-ItemProperty \"bootstrap\\\\cache\" | Select-Object Attributes; Write-Output \"---owner---\"; icacls \"bootstrap\\\\cache\" /findsid \"*S-1-1-0\" 2>&1)",
+      "PowerShell(attrib *)",
+      "PowerShell(php artisan key:generate 2>&1)",
+      "Bash(grep -iE '\\\\.\\(js|jsx|ts|tsx|vue|blade\\\\.php\\)$')",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8000)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://honeybadger.test)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{redirect_url}\\\\n\" http://honeybadger.test)",
+      "Bash(curl -sk -o /dev/null -w \"%{http_code}\\\\n\" https://honeybadger.test)",
+      "PowerShell(php artisan route:list --name=register)",
+      "PowerShell(Get-Process *)",
+      "PowerShell(Stop-Process *)",
+      "PowerShell(cd \"C:\\\\Users\\\\jakem\\\\OneDrive\\\\Documents\\\\Sites\\\\HoneyBadger\"; php artisan tinker --execute=\"echo App\\\\Models\\\\PageField::whereHas\\('page', fn\\(\\\\$q\\)=>\\\\$q->where\\('slug','welcome'\\)\\)->where\\('key','rhythm_steps'\\)->value\\('value'\\);\")",
+      "Bash(npm run *)"
     ]
   }
 }

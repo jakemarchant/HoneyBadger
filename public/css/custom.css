@@ -26,10 +26,10 @@
   --ink-muted: rgba(18, 16, 11, .68);
   --line: rgba(196, 151, 58, .17);
   --line2: rgba(244, 237, 216, .09);
-  --fh: 'Cormorant Garamond', serif;
-  --ft: 'Cinzel', serif;
-  --fb: 'Jost', sans-serif;
-  --fe: 'Special Elite', monospace;
+  --fh: 'Poppins', sans-serif;
+  --ft: 'Poppins', sans-serif;
+  --fb: 'Poppins', sans-serif;
+  --fe: 'Poppins', sans-serif;
   --tex-gold: url('texture-gold-dust.png');
   --tex-emerald: url('texture-emerald-stroke.png');
   --tex-grunge: url('texture-urban-grunge.png');
@@ -1511,11 +1511,22 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background:
-    linear-gradient(rgba(13, 12, 8, .42), rgba(13, 12, 8, .80)),
-    var(--tex-gold);
+  background: var(--tex-gold);
   background-size: cover;
   background-position: center;
+}
+
+.deals-poster::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(13, 12, 8, .42), rgba(13, 12, 8, .80));
+  pointer-events: none;
+}
+
+.deals-poster > * {
+  position: relative;
+  z-index: 1;
 }
 
 .deals-poster img {

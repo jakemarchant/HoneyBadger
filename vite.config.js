@@ -12,11 +12,13 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/js/passkeys.js',
+                'resources/css/admin.css',
+                'resources/js/admin.js',
             ],
             refresh: true,
             fonts: [
-                bunny('Instrument Sans', {
-                    weights: [400, 500, 600],
+                bunny('Poppins', {
+                    weights: [300, 400, 500, 600, 700],
                 }),
             ],
         }),

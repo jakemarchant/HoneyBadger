@@ -6,16 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? '' }}</title>
 
-    <meta name="description"
-        content="HoneyBadger Norwich is a vibrant café, kitchen and cocktail bar on Red Lion Street, with coffee, iced drinks, food, cocktails and an opening party on 11 July.">
-    <meta property="og:title" content="HoneyBadger Norwich | Café · Kitchen · Cocktails">
-    <meta property="og:description"
-        content="HoneyBadger Norwich is a vibrant café, kitchen and cocktail bar on Red Lion Street, with coffee, iced drinks, food, cocktails and an opening party on 11 July.">
+    @php
+        $metaDescription = $description ?? 'HoneyBadger Norwich is a vibrant café, kitchen and cocktail bar on Red Lion Street, Norwich, with coffee, iced drinks, food and cocktails.';
+        $metaImage = $image ?? asset('/images/honeybadger-logo.png');
+        $canonicalUrl = url()->current();
+    @endphp
+
+    <meta name="description" content="{{ $metaDescription }}">
+    <link rel="canonical" href="{{ $canonicalUrl }}">
+
+    <meta property="og:title" content="{{ $title ?? '' }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="{{ asset('/images/honeybadger-logo.png') }}">
+    <meta property="og:url" content="{{ $canonicalUrl }}">
+    <meta property="og:image" content="{{ $metaImage }}">
+    <meta property="og:site_name" content="HoneyBadger Norwich">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $title ?? '' }}">
+    <meta name="twitter:description" content="{{ $metaDescription }}">
+    <meta name="twitter:image" content="{{ $metaImage }}">
+
+    <link rel="icon" href="{{ asset('/favicon.ico') }}" sizes="any">
+    <link rel="icon" href="{{ asset('/favicon.svg') }}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{{ asset('/apple-touch-icon.png') }}">
+
+    <script type="application/ld+json">
+        {!! json_encode([
+            '@context' => 'https://schema.org',
+            '@type' => ['CafeOrCoffeeShop', 'BarOrPub'],
+            'name' => 'HoneyBadger Norwich',
+            'image' => asset('/images/honeybadger-logo.png'),
+            'url' => url('/'),
+            'email' => 'bookings@thehoneybadgernorwich.co.uk',
+            'address' => [
+                '@type' => 'PostalAddress',
+                'streetAddress' => '1 Red Lion Street',
+                'addressLocality' => 'Norwich',
+                'addressCountry' => 'GB',
+            ],
+            'sameAs' => [
+                'https://www.instagram.com/honeybadgernorwich/',
+            ],
+            'servesCuisine' => ['Café', 'Cocktails', 'Coffee'],
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;600;700&family=Jost:wght@300;400;500&family=Special+Elite&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     @livewireStyles
@@ -77,32 +116,41 @@
         </div>
     </footer>
     <script>
-        const n = document.getElementById('mnav');
-        const b = document.querySelector('.menu-toggle');
-        window.addEventListener('scroll', () => {
-            window.scrollY > 35 ? n.classList.add('scrolled') : n.classList.remove('scrolled')
-        });
-        if (b) {
-            b.addEventListener('click', () => n.classList.toggle('open'));
-        }
-        const r = new IntersectionObserver(e => {
-            e.forEach(x => {
-                if (x.isIntersecting) x.target.classList.add('on')
-            })
-        }, {
-            threshold: .12
-        });
-        document.querySelectorAll('.rv').forEach(x => r.observe(x));
-        document.querySelectorAll('form[data-mailto]').forEach(f => {
-            f.addEventListener('submit', e => {
-                e.preventDefault();
-                const d = new FormData(f);
-                let lines = [];
-                d.forEach((v, k) => lines.push(k + ': ' + v));
-                location.href = f.dataset.mailto + '?subject=' + encodeURIComponent(f.dataset.subject ||
-                    'HoneyBadger Norwich enquiry') + '&body=' + encodeURIComponent(lines.join('\n'))
-            })
-        });
+        (function() {
+            if (!window.__hbNavScrollBound) {
+                window.__hbNavScrollBound = true;
+                window.addEventListener('scroll', () => {
+                    const nav = document.getElementById('mnav');
+                    if (nav) window.scrollY > 35 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled')
+                });
+            }
+
+            const n = document.getElementById('mnav');
+            const b = document.querySelector('.menu-toggle');
+            if (b && n) {
+                b.addEventListener('click', () => n.classList.toggle('open'));
+            }
+
+            const r = new IntersectionObserver(e => {
+                e.forEach(x => {
+                    if (x.isIntersecting) x.target.classList.add('on')
+                })
+            }, {
+                threshold: .12
+            });
+            document.querySelectorAll('.rv').forEach(x => r.observe(x));
+
+            document.querySelectorAll('form[data-mailto]').forEach(f => {
+                f.addEventListener('submit', e => {
+                    e.preventDefault();
+                    const d = new FormData(f);
+                    let lines = [];
+                    d.forEach((v, k) => lines.push(k + ': ' + v));
+                    location.href = f.dataset.mailto + '?subject=' + encodeURIComponent(f.dataset.subject ||
+                        'HoneyBadger Norwich enquiry') + '&body=' + encodeURIComponent(lines.join('\n'))
+                })
+            });
+        })();
     </script>
 
     @livewireScripts

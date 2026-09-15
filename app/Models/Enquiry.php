@@ -36,12 +36,12 @@ class Enquiry extends Model
     public function markAsRead(): void
     {
         if (is_null($this->read_at)) {
-            $this->update(['read_at' => now()]);
+            $this->forceFill(['read_at' => now()])->save();
         }
     }
 
     public function markAsUnread(): void
     {
-        $this->update(['read_at' => null]);
+        $this->forceFill(['read_at' => null])->save();
     }
 }

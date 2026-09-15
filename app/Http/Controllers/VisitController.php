@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\VisitEnquiry;
+use App\Models\Enquiry;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -24,13 +25,17 @@ class VisitController extends Controller
             'Message' => ['nullable', 'string', 'max:2000'],
         ]);
 
-        Mail::to(config('mail.bookings_address'))->send(new VisitEnquiry([
+        $enquiryData = [
             'name' => $validated['Name'],
             'email' => $validated['Email'],
             'phone' => $validated['Phone'] ?? null,
             'enquiry_type' => $validated['Enquiry_type'],
             'message' => $validated['Message'] ?? null,
-        ]));
+        ];
+
+        Enquiry::create($enquiryData);
+
+        Mail::to(config('mail.bookings_address'))->send(new VisitEnquiry($enquiryData));
 
         return redirect(route('visit').'#reserve')->with('visit_status', 'success');
     }
